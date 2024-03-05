@@ -22,7 +22,7 @@
                 <div class="col">
                     <img src="weather-app-img/images/humidity.png" alt="error">
                     <div>
-                        <p class="humidity">50%</p>
+                        <p class="humidity">50 %</p>
                         <p>Humidity</p>
                     </div>
                 </div>
@@ -49,6 +49,37 @@
         async function checkWeather(city){
             const response=await fetch(apiUrl+ city +`&appid=${apikey}`);
             var data = await response.json();
+
+            let temp = "tempereture is"+Math.round(data.main.temp)+"°C" ;//getting data
+            let condition = "weather seems to be"+data.weather[0].main;//weather condition
+            let wind = "today wind speed is"+data.wind.speed+" Km/h";
+            let humidity = "today humidity is "+data.main.humidity+" %";
+           let city1 = "todays weather candition in "+data.name;
+           let thanks = "thank you  have a good day"  
+           
+           
+           const utterance4 = new SpeechSynthesisUtterance(city1); // using librery
+            speechSynthesis.speak(utterance4);
+
+            const utterance = new SpeechSynthesisUtterance(temp); // using librery
+            speechSynthesis.speak(utterance);
+
+            const utterance1 = new SpeechSynthesisUtterance(condition); // using librery
+            speechSynthesis.speak(utterance1);
+
+            const utterance2 = new SpeechSynthesisUtterance(wind); // using librery
+            speechSynthesis.speak(utterance2);
+
+            const utterance3 = new SpeechSynthesisUtterance(humidity); // using librery
+            speechSynthesis.speak(utterance3);
+
+            const utterance5 = new SpeechSynthesisUtterance(thanks); // using librery
+            speechSynthesis.speak(utterance5);
+
+
+
+
+
             console.log(data);
             document.querySelector(".city").innerHTML=data.name;
             document.querySelector(".temp").innerHTML=Math.round(data.main.temp)+"°C";
